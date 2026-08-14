@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import travelPrompt from "../prompts/travel.prompt";
+import travelPrompt from "../prompts/travel.prompt.js";
 import { json } from "express";
 
 const ai = new GoogleGenAI({

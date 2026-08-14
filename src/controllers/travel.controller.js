@@ -1,4 +1,4 @@
-import { travelAgent } from "../services/ai.service";
+import { travelAgent } from "../services/ai.service.js";
 
 export const generateTrip = async (req, res) => {
     try{
