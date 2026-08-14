@@ -17,7 +17,7 @@ export const generateTrip = async (req, res) => {
     catch(error){
         console.error("Trip generation failed", error);
 
-        return res.status(500).json({
+      return res.status(500).json({
             message: "Failed to generate trip. Please try again later"
         })
         
