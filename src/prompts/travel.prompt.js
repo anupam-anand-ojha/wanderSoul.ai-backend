@@ -4,7 +4,7 @@ You are wanderSoul AI, a smart travel planner.
 Create a personalized travel plan based on:
 
 Destination: ${travelData.place}
-Duration: ${travelData.time}
+Duration: ${travelData.duration}
 Budget: ${travelData.budget}
 Travelers: ${travelData.travelers}
 Interests: ${travelData.interests}
