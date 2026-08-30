@@ -4,7 +4,7 @@ export const generateTrip = async (req, res) => {
     try{
         const travelData = req.body ;
 
-    if (!travelData.place || !travelData.duration || !travelData.budget) {
+    if (!travelData.place || !travelData.time || !travelData.budget) {
       return res.status(400).json({
         message: "Place, Time and Budget are required",
       });
