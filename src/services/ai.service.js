@@ -1,6 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 import travelPrompt from "../prompts/travel.prompt.js";
-import { json } from "express";
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
