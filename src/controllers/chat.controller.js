@@ -1,4 +1,4 @@
-import { chatAgent } from "../services/aiService.js";
+import { chatAgent } from "../services/ai.service.js";
 
 export const chatController = async (req, res) => {
   try {
