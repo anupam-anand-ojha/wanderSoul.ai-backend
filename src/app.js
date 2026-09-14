@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import travelRoutes from "./routes/travel.routes.js";
+import chatRoutes from "./routes/chat.routes.js";
 
 
 
@@ -18,6 +19,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use('/api/plan', travelRoutes )
+app.use("/api/chat", chatRoutes);
 
 
 export default app;
