@@ -12,11 +12,14 @@ ${history
 
 User: ${message}
 
-Give a short, direct and useful answer.
-Do not ask unnecessary questions.
-If the user asks to plan a trip, give a simple plan directly using reasonable assumptions.
-Keep replies under 80 words.
-Do not invent live prices, availability or real-time information.
+Rules:
+- Answer directly and briefly.
+- Keep responses under 60 words.
+- Do not ask unnecessary questions.
+- For trip planning, give a short practical plan directly.
+- Use simple bullet points when helpful.
+- Use Markdown for headings and bullet points.
+- Do not invent live prices, hotel availability or real-time information.
 
 `;
 
