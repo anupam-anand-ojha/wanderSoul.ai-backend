@@ -10,19 +10,35 @@ export const chatController = async (req, res) => {
       });
     }
 
-    const reply = await chatAgent(
+  
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+
+    const stream = await chatAgent(
       message.trim().slice(0, 500),
-      history.slice(-6)
+      history.slice(-6),
     );
 
-    res.status(200).json({
-      reply,
-    });
+    for await (const event of stream) {
+      if (event.event_type === "step.delta" && event.delta?.type === "text") {
+        res.write(`data: ${JSON.stringify(event.delta.text)}\n\n`);
+      }
+    }
+
+    res.write("data: [DONE]\n\n");
+    res.end();
   } catch (error) {
     console.error("Chat error:", error);
 
-    res.status(500).json({
-      message: "Something went wrong",
-    });
+    if (!res.headersSent) {
+      return res.status(500).json({
+        message: "Something went wrong",
+      });
+    }
+
+    res.write(`data: ${JSON.stringify("Something went wrong")}\n\n`);
+
+    res.end();
   }
 };
