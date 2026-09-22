@@ -10,9 +10,8 @@ export const chatController = async (req, res) => {
       });
     }
 
-  
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Cache-Control", "no-cache, no-transform");
     res.setHeader("Connection", "keep-alive");
 
     const stream = await chatAgent(
@@ -21,13 +20,16 @@ export const chatController = async (req, res) => {
     );
 
     for await (const event of stream) {
-      if (event.event_type === "step.delta" && event.delta?.type === "text") {
-        res.write(`data: ${JSON.stringify(event.delta.text)}\n\n`);
+      if (
+        event.event_type === "step.delta" &&
+        event.delta?.type === "text"
+      ) {
+        res.write(event.delta.text);
       }
     }
 
-    res.write("data: [DONE]\n\n");
     res.end();
+
   } catch (error) {
     console.error("Chat error:", error);
 
@@ -36,8 +38,6 @@ export const chatController = async (req, res) => {
         message: "Something went wrong",
       });
     }
-
-    res.write(`data: ${JSON.stringify("Something went wrong")}\n\n`);
 
     res.end();
   }
