@@ -21,10 +21,13 @@ export const travelAgent = async (travelData) => {
 };
 
 export const chatAgent = async (message, history) => {
-  const interaction = await ai.interactions.create({
+
+  const stream = await ai.interactions.create({
+
     model: "gemini-3.1-flash-lite",
     input: chatPrompt(message, history),
+    stream: true,
   });
 
-  return interaction.output_text;
+  return stream;
 };
