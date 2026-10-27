@@ -14,7 +14,7 @@ User: ${message}
 
 Rules:
 - Answer directly and briefly.
-- Keep responses under 60 words.
+- Keep responses under 50 words.
 - Do not ask unnecessary questions.
 - For trip planning, give a short practical plan directly.
 - Use simple bullet points when helpful.
