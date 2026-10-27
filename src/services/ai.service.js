@@ -20,10 +20,25 @@ export const travelAgent = async (travelData) => {
   return JSON.parse(interaction.output_text);
 };
 
-export const chatAgent = async (message, history) => {
-  return await ai.interactions.create({
-    model: "gemini-3.1-flash-lite",
-    input: chatPrompt(message, history),
-    stream: true,
-  });
+
+
+export const chatAgent = async (message, history = []) => {
+  console.time("Chat API Total");
+
+  try {
+    const stream = await ai.interactions.create({
+      model: "gemini-3.1-flash-lite",
+      input: chatPrompt(message, history),
+      stream: true,
+    });
+
+    console.timeLog("Chat API Total", "Stream started");
+
+    return stream;
+  } catch (error) {
+    throw error;
+  } finally {
+    console.timeEnd("Chat API Total");
+  }
+
 };

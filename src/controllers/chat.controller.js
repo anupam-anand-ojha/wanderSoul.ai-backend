@@ -14,19 +14,38 @@ export const chatController = async (req, res) => {
     res.setHeader("Cache-Control", "no-cache, no-transform");
     res.setHeader("Connection", "keep-alive");
 
-    const stream = await chatAgent(
-      message.trim().slice(0, 500),
-      history.slice(-6),
-    );
+    
+const startTime = Date.now();
+let firstChunkLogged = false;
 
-    for await (const event of stream) {
-      if (
-        event.event_type === "step.delta" &&
-        event.delta?.type === "text"
-      ) {
-        res.write(event.delta.text);
-      }
+const stream = await chatAgent(
+  message.trim().slice(0, 500),
+  history.slice(-6),
+);
+
+console.log(
+  "Gemini stream initialized:",
+  Date.now() - startTime,
+  "ms",
+);
+
+for await (const event of stream) {
+  if (
+    event.event_type === "step.delta" &&
+    event.delta?.type === "text"
+  ) {
+    if (!firstChunkLogged) {
+      console.log(
+        "First text chunk:",
+        Date.now() - startTime,
+        "ms",
+      );
+      firstChunkLogged = true;
     }
+
+    res.write(event.delta.text);
+  }
+}
 
     res.end();
 
